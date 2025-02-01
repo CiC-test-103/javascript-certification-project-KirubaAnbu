@@ -1,0 +1,12 @@
+[
+  {
+    "name": "anbu",
+    "year": "s@gmail.com",
+    "email": "Maths"
+  },
+  {
+    "name": "Kiruba",
+    "year": "2",
+    "email": "s@gmail.com"
+  }
+]
