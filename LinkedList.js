@@ -188,13 +188,17 @@ class LinkedList {
       }
       
       while(current){
-        studentsArray.push(current.data);//Storing all student name
+        studentsArray.push(current.data.name);//Storing all student name
         current=current.next;
       }
      
       studentsArray.sort((a,b) =>{// sort  alphabetical order all the students 
-        if(a<b){ return -1;} // a small than b 
-        if(a>b){return 1;}
+        if(a<b){ 
+          return -1;
+        } // a small than b 
+        if(a>b){
+          return 1;
+        }
         return 0;    // a=b
       });
       return studentsArray; //return alphabetical order
