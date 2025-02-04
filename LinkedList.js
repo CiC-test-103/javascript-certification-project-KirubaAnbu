@@ -146,6 +146,7 @@ class LinkedList {
     this.head=null;
     this.tail=null;
     this.length=0;
+    
   }
 
   /**
@@ -179,21 +180,22 @@ class LinkedList {
    */
   #sortStudentsByName() {
     // TODO : sorted array of students by name
-    let current =this.head;
-    let studentsArray =[];
-   
-    if(!this.head){
-      return [];
-    }
-    
-    while(current){
-      studentsArray.push(current.data.name);//Storing all student name
-      current=current.next;
-    }
-    studentsArray.sort();
-    return studentsArray;  //return alphabetical order
-  }
+    let filterStudentsArray=[];
 
+    filterStudentsArray.sort((a,b) =>{  // sort  alphabetical order all the students 
+        if(a.getName()<b.getName()){ return -1;}  // a small than b 
+        if(a.getName()>b.getName()){return 1;}
+        return 0;    // a=b
+      });
+      
+     // console.log(this.filterStudentsArray);
+
+    return filterStudentsArray;  //return alphabetical order
+  }
+  sortByName(studentsName){
+    return this.#sortStudentsByName(studentsName);
+
+  }
   /**
    * REQUIRES:  specialization (String)
    * EFFECTS:   None
@@ -205,7 +207,7 @@ class LinkedList {
     // TODO
     let current =this.head;
     let filterSpecialArray=[];
-
+      
     while(current){
       if(current.data.getSpecialization() === specialization){
         filterSpecialArray.push(current.data);
@@ -214,9 +216,8 @@ class LinkedList {
       current=current.next;
 
     }
-    this.#sortStudentsByName(filterSpecialArray);
-
-    return filterSpecialArray ;
+   
+     return filterSpecialArray ;
   }
 
   /**
@@ -226,22 +227,23 @@ class LinkedList {
    * CONSIDERATIONS:
    * - Use sortStudentsByName()
    */
-  filterByMinAge(minAge) {
+  filterByMinYear(minYear) {
     // TODO
-    let current =this.head;
-    let filterMinAgeArray=[];
 
+    let current =this.head;
+    let filterYearArray=[];
+      
     while(current){
-      if(current.data.getYear() === minAge){
-        filterMinAgeArray.push(current.data);
+      if(current.data.getYear() === minYear){
+        filterYearArray.push(current.data);
 
          }
       current=current.next;
 
     }
-    this.#sortStudentsByName(filterMinAgeArray);
-    
-    return filterMinAgeArray;
+   
+     return filterYearArray ;
+
   }
 
   /**
@@ -251,6 +253,10 @@ class LinkedList {
    */
   async saveToJson(fileName) {
     // TODO
+    if(!fileName){
+      console.log("Enter valid FileName");
+
+    }
     const students=[];
     let current =this.head;
     while(current){
@@ -263,7 +269,17 @@ class LinkedList {
       current=current.next;
 
     }
-     await fs.writeFile(fileName,JSON.stringify(students, null, 2),(err) => {
+    let existdata =[];
+    try{
+    const filedata = await fs.readFile(fileName,'utf-8');
+    if(filedata){
+      existdata = JSON.parse(filedata);
+    }
+   }catch(err){
+    console.log("Error in reading the file");
+   }
+    const updatefile =[...existdata,...students];
+    await fs.writeFile(fileName,JSON.stringify(updatefile, null, 2),(err) => {
     if(err){
       console.log("Error in writing file:" , err);
       return;

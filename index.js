@@ -23,6 +23,8 @@ function main() {
       - remove [email]: Remove a student by email
       - display: Show all students
       - find [email]: Find a student by email
+      - filterYear [number] : to filter students by year
+      - filterSpecial [Specialization]: to filter students by specialization
       - save: Save the current linked list to the specified file
       - load [fileName]: Load a linked list from a file
       - clear: Clear the current linked list
@@ -160,6 +162,24 @@ async function handleCommand(command) {
         console.log(`StudentList loaded from  ${loadFileName} JSON file to LinkedList.`);
 
       // --------> WRITE YOUR CODE ABOVE
+      break;
+
+    case 'filterSpecial':
+
+      let [filterSpecialization] =args;
+      console.log("Filtering data by Specialization ");
+      const filter = studentManagementSystem.filterBySpecialization(filterSpecialization);
+      console.log(filter.map((students) => students.getString()));
+      
+      break;
+
+    case 'filterYear':
+      
+      let [filterYear] =args;
+      console.log("Filtering data by Age or Year ");
+      const filterbyYear = studentManagementSystem.filterByMinYear(parseInt(filterYear));
+      console.log(filterbyYear.map((students) => students.getString())); //students.getName() for name to display
+      
       break;
 
     case 'clear':
