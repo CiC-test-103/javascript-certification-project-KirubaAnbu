@@ -179,22 +179,26 @@ class LinkedList {
    * RETURNS:   A sorted array of students by name
    */
   #sortStudentsByName() {
-    // TODO : sorted array of students by name
-    let filterStudentsArray=[];
-
-    filterStudentsArray.sort((a,b) =>{  // sort  alphabetical order all the students 
-        if(a.getName()<b.getName()){ return -1;}  // a small than b 
-        if(a.getName()>b.getName()){return 1;}
+      // TODO : sorted array of students by name
+      let current =this.head;
+      let studentsArray =[];
+     
+      if(!this.head){
+        return [];
+      }
+      
+      while(current){
+        studentsArray.push(current.data);//Storing all student name
+        current=current.next;
+      }
+     
+      studentsArray.sort((a,b) =>{// sort  alphabetical order all the students 
+        if(a<b){ return -1;} // a small than b 
+        if(a>b){return 1;}
         return 0;    // a=b
       });
-      
-     // console.log(this.filterStudentsArray);
-
-    return filterStudentsArray;  //return alphabetical order
-  }
-  sortByName(studentsName){
-    return this.#sortStudentsByName(studentsName);
-
+      return studentsArray; //return alphabetical order
+    
   }
   /**
    * REQUIRES:  specialization (String)

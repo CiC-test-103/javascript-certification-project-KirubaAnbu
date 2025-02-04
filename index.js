@@ -177,7 +177,7 @@ async function handleCommand(command) {
       
       let [filterYear] =args;
       console.log("Filtering data by Age or Year ");
-      const filterbyYear = studentManagementSystem.filterByMinYear(parseInt(filterYear));
+      const filterbyYear = studentManagementSystem.filterByMinYear(parseInt(filterYear)); // filterByMinYear(filterYear) if textfeild
       console.log(filterbyYear.map((students) => students.getString())); //students.getName() for name to display
       
       break;
